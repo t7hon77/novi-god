@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="snowblock"></div>
+    <div class="new-year-timer">
+  <h2>До Нового года осталось:</h2>
+  <div class="timer-display">
+    <div class="time-unit">
+      <span id="days">00</span>
+      <span class="label">дней</span>
+    </div>
+    <div class="time-unit">
+      <span id="hours">00</span>
+      <span class="label">часов</span>
+    </div>
+    <div class="time-unit">
+      <span id="minutes">00</span>
+      <span class="label">минут</span>
+    </div>
+    <div class="time-unit">
+      <span id="seconds">00</span>
+      <span class="label">секунд</span>
+    </div>
+  </div>
+</div>
+
+
+
+<script>
+function updateTimer() {
+  const now = new Date();
+  const nextYear = new Date(now.getFullYear() + 1, 0, 1); // 1 января следующего года
+  const diff = nextYear - now;
+
+  // Вычисляем оставшиеся дни, часы, минуты и секунды
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+  const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+  // Обновляем значения на странице
+  document.getElementById('days').textContent = days.toString().padStart(2, '0');
+  document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+  // Если время истекло
+  if (diff <= 0) {
+    clearInterval(timerInterval);
+    document.querySelector('.new-year-timer h2').textContent = 'С Новым годом!';
+    document.querySelector('.timer-display').style.display = 'none';
+  }
+}
+
+// Запускаем таймер и обновляем каждую секунду
+const timerInterval = setInterval(updateTimer, 1000);
+updateTimer(); // Первый вызов сразу
+</script>
+
+
+
+<div class="interactive-dedmoroz">
+  <img src="c:\Users\student\Desktop\РВ-3.6\Тихонов РВ-3.6-23\КАРТИНКИ\pngtree-christmas-christmas-santa-claus-red-png-image_3914096.png" alt="Дед Мороз" id="dedmoroz-btn">
+  <div id="greeting" class="greeting-box">
+    <p>Здравствуйте! Желаю вам счастливого Нового года!</p>
+    <button onclick="closeGreeting()">Закрыть</button>
+  </div>
+</div>
+<script>
+document.getElementById('dedmoroz-btn').addEventListener('click', function() {
+  document.getElementById('greeting').style.display = 'block';
+});
+
+function closeGreeting() {
+  document.getElementById('greeting').style.display = 'none';
+}
+</script>
+</body>
+</html>
